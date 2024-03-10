@@ -12,5 +12,10 @@ export default function (options: Cli.CommandOptions<typeof definition>) {
     const [key, value] = curr.split("=");
     return { ...acc, [key]: value };
   }, {});
-  executeScript(scriptName, { LOCATION: location, ...variables });
+  const allVars = options.variables.join(" ");
+  executeScript(scriptName, {
+    ...variables,
+    LOCATION: location,
+    VARS: allVars,
+  });
 }
