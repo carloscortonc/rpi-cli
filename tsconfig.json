@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "NodeNext",
+    "allowJs": true,
+    "module": "NodeNext",
+    "target": "ESNext",
+    "strict": true,
+    "outDir": "dist",
+    "rootDir": "./src",
+    "checkJs": false,
+    "noImplicitAny": false,
+    "baseUrl": "./src",
+    "paths": {
+      "@modules/*": ["modules/*"],
+      "@commands/*": ["commands/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}

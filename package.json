@@ -1,0 +1,32 @@
+{
+  "name": "rpi-cli",
+  "version": "0.1.0",
+  "description": "Cli utility to interact with a server instance",
+  "repository": "github:carloscortonc/rpi-cli",
+  "license": "MIT",
+  "author": "Carlos Cortón Cobas <carloscortoncobas98@gmail.com>",
+  "scripts": {
+    "build": "rimraf dist && yarn tsc && tsc-alias && cpx 'src/**/*.sh' dist",
+    "build-local": "yarn build && chmod +x ./dist/index.js"
+  },
+  "bin": {
+    "rpi": "dist/index.js"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "dependencies": {
+    "archiver": "^6.0.1",
+    "cli-er": "0.15.0",
+    "conf": "10.2.0"
+  },
+  "devDependencies": {
+    "@types/archiver": "^6.0.2",
+    "@types/node": "^20.8.5",
+    "cpx": "^1.5.0",
+    "glob": "^10.3.10",
+    "rimraf": "^5.0.5",
+    "tsc-alias": "^1.8.8",
+    "typescript": "^5.2.2"
+  }
+}
