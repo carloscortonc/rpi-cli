@@ -6,24 +6,33 @@ import { prompt } from "enquirer";
  * Validate a list of config keys
  * @param keys Object containing {[key]: description } to check if present in configuration
  */
-export async function validate(keys: Record<string, string>) {
-  const missingKeys = Object.keys(keys).filter((k) => !config.get(k));
-  if (missingKeys.length === 0) {
+export async function requireConfig(
+  keys: Record<string, string>,
+  override = false
+) {
+  const missingKeys = override
+    ? keys
+    : Object.entries(keys)
+        .filter(([k]) => !config.get(k))
+        .reduce((acc, [k, v]) => ({ ...acc, [k]: v }), {});
+  if (Object.keys(missingKeys).length === 0) {
     return;
   }
   Cli.logger.log("\nInput the following required configuration:\n");
+  return request(missingKeys).then((values) => {
+    config.set(values!);
+  });
+}
+
+export async function request(keys: Record<string, string>) {
   return prompt(
-    missingKeys.map((name) => ({
+    Object.keys(keys).map((name) => ({
       type: "input",
       name,
       message: keys[name],
       required: true,
     }))
-  )
-    .then((values) => {
-      for (const [k, v] of Object.entries(values)) {
-        config.set(k, v);
-      }
-    })
-    .catch(() => {});
+  ).catch(() => {
+    throw new Error("There was a problem requesting information");
+  });
 }

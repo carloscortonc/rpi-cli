@@ -34,10 +34,11 @@ EXPOSE $PORT
 ### Deploy on server
 
 ```sh
-# create zip for target application
-$ rpi zip project/dist project.zip
-# deploy application
-$ rpi deploy ./project.zip --vars PORT=8080
+# deploy application - build on local machine
+$ rpi deploy dist --vars PORT=8080
+
+# deploy application - build on target server
+$ rpi deploy dist --vars PORT=8080 --build-on-target
 ```
 
 ## Development

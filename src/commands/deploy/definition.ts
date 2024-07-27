@@ -13,6 +13,16 @@ const definition = Cli.defineCommand({
       enum: ["docker", "web"] as const,
       default: "docker",
     },
+    name: {
+      description:
+        "Name to tag the application. By default, the folder/file name will be used",
+    },
+    buildOnTarget: {
+      description: "Build docker image on target machine instead of local",
+      type: "boolean",
+      aliases: ["build-on-target"],
+      default: false,
+    },
     variables: {
       description:
         "List of variables for docker applications in <KEY>=<VALUE> format, e.g. PORT=8080",

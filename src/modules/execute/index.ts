@@ -1,14 +1,16 @@
 import config from "@modules/config";
-import { validate } from "@modules/config/utils";
+import { requireConfig } from "@modules/config/utils";
 import { spawn } from "child_process";
 import path from "path";
 
 export async function executeScript(
   name: string,
-  params: Record<string, string> = {}
+  params: Record<string, string> = {},
+  serverId: string = "default"
 ): Promise<void> {
   // Check first if required configuration is present
-  await validate({ ip: "Server IP address", user: "Server user" });
+  const [ip, user] = ["ip", "user"].map((e) => serverId.concat(".", e));
+  await requireConfig({ [ip]: "Server IP address", [user]: "Server user" });
   const location = path.join(__dirname, "..", "scripts", name);
   // TODO check for valid location
   return new Promise((resolve, reject) => {
@@ -17,8 +19,9 @@ export async function executeScript(
       shell: true,
       cwd: path.dirname(location),
       env: {
-        IP: config.get("ip") as string,
-        USER: config.get("user") as string,
+        ...process.env,
+        IP: config.get(ip) as string,
+        USER: config.get(user) as string,
         ...params,
       },
     });

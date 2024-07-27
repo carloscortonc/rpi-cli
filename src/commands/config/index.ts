@@ -5,13 +5,9 @@ import definition from "./definition";
 type ConfigParams = Cli.CommandOptions<typeof definition>;
 const operations = {
   get: ({ key }: ConfigParams) => {
-    if (key !== undefined) {
-      Cli.logger.log(config.get(key) || "Not value found\n");
-    }
-    // Print all key-values
-    else {
-      Cli.logger.log(JSON.stringify(config.store, null, 2), "\n");
-    }
+    const content =
+      key !== undefined ? config.get(key, "Not value found") : config.store;
+    Cli.logger.log(JSON.stringify(content, null, 2), "\n");
   },
   set: ({ key, value }: ConfigParams) => {
     if ([key, value].some((e) => e == undefined)) {
