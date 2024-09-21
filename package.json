@@ -21,12 +21,18 @@
   "dependencies": {
     "archiver": "^6.0.1",
     "cli-er": "0.15.0",
-    "conf": "10.2.0",
-    "enquirer": "^2.4.1"
+    "enquirer": "^2.4.1",
+    "ini": "^5.0.0",
+    "object-path": "^0.11.8"
   },
   "devDependencies": {
+    "@saithodev/semantic-release-backmerge": "^2.1.2",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
     "@types/archiver": "^6.0.2",
+    "@types/ini": "^4.1.1",
     "@types/node": "^20.8.5",
+    "@types/object-path": "^0.11.4",
     "cpx": "^1.5.0",
     "glob": "^10.3.10",
     "rimraf": "^5.0.5",
