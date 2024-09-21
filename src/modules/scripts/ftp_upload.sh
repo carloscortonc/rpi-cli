@@ -1,8 +1,8 @@
 #!/bin/bash
 # Script for uploading files into "registry" folder
-# ENV_VARIABLES:
-#   LOCATION: location where the file to upload is located
+# ARGUMENTS:
+#   $1: location where the file to upload is located
 
-FILENAME=`basename $LOCATION`
+FILENAME=`basename $1`
 DESTFILE="./registry/${FILENAME}"
-echo "put $LOCATION $DESTFILE" | sftp $USER@$IP
+echo "put $1 $DESTFILE" | sftp $USER@$IP

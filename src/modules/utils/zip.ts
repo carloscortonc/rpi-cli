@@ -13,7 +13,7 @@ export default function zip(from: string, to: string): Promise<void> {
   const stream = fs.createWriteStream(to);
   return new Promise((resolve, reject) => {
     archive
-      .directory(from, path.basename(to, ".zip"))
+      .directory(from, false)
       .on("error", (err) => reject(err))
       .pipe(stream);
 

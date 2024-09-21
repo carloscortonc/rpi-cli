@@ -6,8 +6,8 @@
   "author": "Carlos Cortón Cobas <carloscortoncobas98@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf dist && yarn tsc && tsc-alias && cpx 'src/**/*.sh' dist",
-    "build-local": "yarn build && chmod +x ./dist/index.js"
+    "build": "rimraf dist && npx tsc && tsc-alias && cpx 'src/**/*.sh' dist",
+    "build-local": "npm run build && chmod +x ./dist/index.js"
   },
   "bin": {
     "rpi": "dist/index.js"
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "archiver": "^6.0.1",
-    "cli-er": "0.15.0",
+    "cli-er": "^0.16.0",
     "enquirer": "^2.4.1",
     "ini": "^5.0.0",
     "object-path": "^0.11.8"

@@ -20,7 +20,7 @@ export async function requireConfig(
   }
   Cli.logger.log("\nInput the following required configuration:\n");
   return request(missingKeys).then((values) => {
-    config.set(values!);
+    config.set(values);
   });
 }
 

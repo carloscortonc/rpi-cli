@@ -11,7 +11,7 @@ NAME="${APP_NAME:-$APP}"
 
 echo Uploading project [$NAME] to registry ...
 
-source $CURRDIR/ftp_upload.sh
+source $CURRDIR/ftp_upload.sh $LOCATION
 
 ssh $USER@$IP 'bash -s' <<EOF
 cd ~/registry/

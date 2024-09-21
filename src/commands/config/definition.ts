@@ -9,6 +9,7 @@ const definition = Cli.defineCommand({
       required: true,
       // not including `enum` to allow "config key" as alias of "config get key"
       default: "get",
+      requires: (v) => (v === "set" ? ["key", "value"] : []),
     },
     key: {
       positional: 1,
