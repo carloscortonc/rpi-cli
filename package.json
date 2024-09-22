@@ -1,0 +1,45 @@
+{
+  "name": "rpi-cli",
+  "version": "0.1.0",
+  "description": "Cli utility to interact with a server instance",
+  "repository": "github:carloscortonc/rpi-cli",
+  "author": "Carlos Cortón Cobas <carloscortoncobas98@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist && npx tsc && tsc-alias && cpx 'src/**/*.sh' dist",
+    "build-local": "npm run build && chmod +x ./dist/index.js"
+  },
+  "bin": {
+    "rpi": "dist/index.js"
+  },
+  "files": [
+    "/dist"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "dependencies": {
+    "archiver": "^6.0.1",
+    "cli-er": "^0.16.0",
+    "enquirer": "^2.4.1",
+    "ini": "^5.0.0",
+    "object-path": "^0.11.8"
+  },
+  "devDependencies": {
+    "@saithodev/semantic-release-backmerge": "^2.1.2",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@types/archiver": "^6.0.2",
+    "@types/ini": "^4.1.1",
+    "@types/node": "^20.8.5",
+    "@types/object-path": "^0.11.4",
+    "cpx": "^1.5.0",
+    "glob": "^10.3.10",
+    "rimraf": "^5.0.5",
+    "tsc-alias": "^1.8.8",
+    "typescript": "^5.2.2"
+  },
+  "resolutions": {
+    "strip-ansi": "6.0.0"
+  }
+}
