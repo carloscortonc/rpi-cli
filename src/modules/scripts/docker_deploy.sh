@@ -1,15 +1,14 @@
 #!/bin/bash
-# Script for deploying a docker aplication (zip) in target server
+# Script for deploying a docker aplication in target server
 # ENV_VARIABLES:
-#  - LOCATION: location of the bundle zip
+#  - LOCATION: location of the folder to deploy
 #  - APP_NAME: name to tag the app. Default: `basename $LOCATION`
 #  - PORT: for docker applications, port to be used (should be included in $VARS)
 #  - VARS: other variables to be included as build-args
 #  - BUILD_ON_TARGET: whether the build process should be executed on target server
 
 CURRDIR=$(dirname $0)
-FILE=`basename $LOCATION`
-APP="${FILE%.*}"
+APP=`basename $LOCATION`
 NAME="${APP_NAME:-$APP}"
 ZIP_LOCATION="$LOCATION/../$APP.zip"
 
@@ -51,6 +50,7 @@ fi
 
 # clean
 rm $APP.zip
+rm -r $NAME
 # stop previous container if running
 docker container stop $NAME
 # remove previous container
