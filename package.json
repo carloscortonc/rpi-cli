@@ -1,6 +1,6 @@
 {
   "name": "rpi-cli",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Cli utility to interact with a server instance",
   "repository": "github:carloscortonc/rpi-cli",
   "author": "Carlos Cortón Cobas <carloscortoncobas98@gmail.com>",
