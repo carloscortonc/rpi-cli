@@ -6,15 +6,10 @@ import { prompt } from "enquirer";
  * Validate a list of config keys
  * @param keys Object containing {[key]: description } to check if present in configuration
  */
-export async function requireConfig(
-  keys: Record<string, string>,
-  override = false
-) {
-  const missingKeys = override
-    ? keys
-    : Object.entries(keys)
-        .filter(([k]) => !config.get(k))
-        .reduce((acc, [k, v]) => ({ ...acc, [k]: v }), {});
+export async function requireConfig(keys: Record<string, string>) {
+  const missingKeys = Object.entries(keys)
+    .filter(([k]) => !config.get(k))
+    .reduce((acc, [k, v]) => ({ ...acc, [k]: v }), {});
   if (Object.keys(missingKeys).length === 0) {
     return;
   }
@@ -31,7 +26,7 @@ export async function request(keys: Record<string, string>) {
       name,
       message: keys[name],
       required: true,
-    }))
+    })),
   ).catch(() => {
     throw new Error("There was a problem requesting information");
   });

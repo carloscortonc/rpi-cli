@@ -18,6 +18,13 @@ npm install rpi-cli
 
 ## Available commands
 
+### `rpi init`
+```
+Usage:  rpi init
+
+Initialize server tools and configuration
+```
+
 ### `rpi deploy`
 ```
 Usage:  rpi deploy <location> [OPTIONS]
