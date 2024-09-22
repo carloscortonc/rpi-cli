@@ -13,80 +13,45 @@
 ## Installation
 
 ```sh
-npm install rpi-cli
+npm install rpi-cli -g
 ```
+or
+```sh
+yarn global add rpi-cli
+```
+
+## Getting started
+
+>  The target server-instance needs to have ssh configured.
+
+
+The first step is to setup the desired server-instance:
+
+```sh
+rpi init
+```
+
+
+
+You will be prompted for some required configuration and preferences:
+- **Server IP**: ip of the target server.
+- **Server user**: user to be used when connecting through ssh.
+- **Configure nginx**: whether to setup nginx.
+
+> Server Ip and user will be stored in a configuration file `.rpirc`, which will be read on consecutive executions.
+
+The process will:
+- Install `vsftdp`, required for deploying.
+- Install `docker`.
+- Configure `nginx`, if requested.
+
 
 ## Available commands
 
-### `rpi init`
-```
-Usage:  rpi init
+- [**init**](/docs/commands.md#init): described above, to initially configure a server.
+- [**deploy**](/docs/commands.md#deploy): deploy a docker/web application from a folder.
+- [**config**](/docs/commands.md#deploy): read and update configuration values.
 
-Initialize server tools and configuration
-```
-
-### `rpi deploy`
-```
-Usage:  rpi deploy <location> [OPTIONS]
-
-Deploy an application from a folder
-
-Options:
-  --location         Location of the folder containing the application
-  --type             Type of application to deploy (allowed: "docker", "web", default: "docker")
-  --name             Name to tag the application. By default, the folder/file name will be used
-  --build-on-target  Build docker image on target machine instead of local (default: true)
-  --vars             List of variables for docker applications in <KEY>=<VALUE> format, e.g. PORT=8080 (default: [])
-```
-
-### `rpi config`
-```
-Usage:  rpi config <operation> [key] [value]
-
-Read and update configuration values
-
-Options:
-  --operation  Operation to execute (default: "get")
-  --key        Configuration key
-  --value      For `set` operation, value to update
-```
-
-## Target workflow - Docker application
-
-### File structure
-
-```
-.
-└─ project
-   ├── ...
-   └── dist
-      ├── Dockerfile
-      └── ...
-```
-
-### Dockerfile content
-
-Use `ARG` to declare variables passed with `rpi-deploy --vars` option (mainly `PORT`)
-
-```Dockerfile
-# ...
-
-ARG PORT
-
-EXPOSE $PORT
-
-# ...
-```
-
-### Deploy
-
-```sh
-# deploy application - build on target server
-$ rpi deploy dist --vars PORT=8080
-
-# deploy application - build on local machine
-$ rpi deploy dist --vars PORT=8080 --build-on-target=false
-```
 
 ## Development
 
