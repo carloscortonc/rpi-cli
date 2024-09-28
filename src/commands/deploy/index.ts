@@ -1,11 +1,13 @@
 import path from "path";
 import Cli from "cli-er";
 import { executeScript } from "@modules/execute";
+
 import definition from "./definition";
 import zip from "@modules/utils/zip";
+import { finalPath } from "@modules/utils/path";
 
 export default async function (options: Cli.CommandOptions<typeof definition>) {
-  const location = path.isAbsolute(options.location) ? options.location : path.join(process.cwd(), options.location);
+  const [location, envFile] = [options.location, options.envFile!].map(finalPath);
   const scriptName = options.type.concat("_deploy.sh");
   const variables = options.variables.reduce((acc, curr) => {
     const [key, value] = curr.split("=");
@@ -21,6 +23,7 @@ export default async function (options: Cli.CommandOptions<typeof definition>) {
     LOCATION: location,
     APP_NAME: options.name!,
     VARS: allVars,
+    ENVFILE: envFile,
     BUILD_ON_TARGET: options.buildOnTarget.toString(),
   });
 }

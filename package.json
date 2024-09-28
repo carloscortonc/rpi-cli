@@ -6,7 +6,7 @@
   "author": "Carlos Cortón Cobas <carloscortoncobas98@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf dist && npx tsc && tsc-alias && cpx 'src/**/*.sh' dist",
+    "build": "rimraf dist && tsc && tsc-alias && cpx 'src/**/*.sh' dist",
     "build-local": "npm run build && chmod +x ./dist/index.js"
   },
   "bin": {

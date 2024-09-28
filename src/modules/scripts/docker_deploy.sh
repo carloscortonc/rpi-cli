@@ -5,6 +5,7 @@
 #  - APP_NAME: name to tag the app. Default: `basename $LOCATION`
 #  - PORT: for docker applications, port to be used (should be included in $VARS)
 #  - VARS: other variables to be included as build-args
+#  - ENVFILE: name of an env-file to provide to `docker run` command
 #  - BUILD_ON_TARGET: whether the build process should be executed on target server
 
 CURRDIR=$(dirname $0)
@@ -16,6 +17,7 @@ ZIP_LOCATION="$LOCATION/../$APP.zip"
 vars=($VARS)
 build_args=$([ ! "$VARS" ] && echo "" || echo $(printf -- "--build-arg %s " "${vars[@]}"))
 port_mapping=$([ ! "$PORT" ] && echo "" || echo "-p $PORT:$PORT")
+env_file=$([ ! "$ENVFILE" ] && echo "" || echo "--env-file secrets/$NAME")
 
 # Check for building locally
 if [ "$BUILD_ON_TARGET" != "true" ]; then
@@ -28,6 +30,12 @@ fi
 echo Uploading project [$NAME] to registry ...
 
 source $CURRDIR/ftp_upload.sh $ZIP_LOCATION
+
+# Upload env-file
+if [ "$ENVFILE" ]; then
+  echo Uploading env-file to registry ...
+  source $CURRDIR/ftp_upload.sh $ENVFILE secrets/$NAME
+fi
 
 echo Deploying docker app [$NAME] $([ ! "$PORT" ] && echo "" || echo on port [$PORT])
 
@@ -50,16 +58,15 @@ fi
 
 # clean
 rm $APP.zip
-rm -r $NAME
 # stop previous container if running
 docker container stop $NAME
 # remove previous container
 docker rm $NAME
 # run docker container
-docker run --privileged --name $NAME -d -i $port_mapping $NAME:latest
+docker run --privileged --name $NAME -d -i $port_mapping $env_file $NAME:latest
 # wait 3s and display logs
-echo Waiting 3s before displaying logs...
-sleep 3
+echo Waiting 5s before displaying logs...
+sleep 5
 docker logs $NAME
 
 EOF

@@ -59,6 +59,6 @@ fi
 
 # --- BASIC SETUP ---
 # create /registry folder for downloads
-mkdir ~/registry
+mkdir -p ~/registry/secrets
 
 EOF

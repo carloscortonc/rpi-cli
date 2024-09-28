@@ -13,5 +13,6 @@ new Cli(
     cliName: "rpi",
     rootCommand: false,
     configFile: { names: [".rpirc"], parse: c.parse },
+    envPrefix: "RPI_",
   },
 ).run();

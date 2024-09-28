@@ -28,6 +28,10 @@ const definition = Cli.defineCommand({
       type: "list",
       default: [],
     },
+    envFile: {
+      description: "Environment variables file to provide when running the container",
+      aliases: ["envfile"],
+    },
   },
 });
 
