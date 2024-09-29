@@ -1,9 +1,8 @@
 import Cli from "cli-er";
 import { prompt } from "enquirer";
 import { executeScript } from "@modules/execute";
-import definition from "./definition";
 
-export default async function (options: Cli.CommandOptions<typeof definition>) {
+export default async function () {
   const flags = {
     INSTALL_NGINX: "Configure nginx for web applications (Y/n)",
   };

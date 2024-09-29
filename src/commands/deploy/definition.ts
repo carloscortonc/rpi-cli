@@ -32,6 +32,11 @@ const definition = Cli.defineCommand({
       description: "Environment variables file to provide when running the container",
       aliases: ["envfile"],
     },
+    logs: {
+      description: "Show container logs after the indicated time. Use value <= 0 to skip",
+      type: "number",
+      default: 5,
+    },
   },
 });
 

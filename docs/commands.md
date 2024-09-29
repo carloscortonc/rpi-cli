@@ -20,6 +20,7 @@ Options:
   --build-on-target  Build docker image on target machine instead of local (default: true)
   --vars             List of variables for docker applications in <KEY>=<VALUE> format, e.g. PORT=8080 (default: [])
   --envfile          Environment variables file to provide when running the container
+  --logs             Show container logs after the indicated time. Use value <= 0 to skip (default: 5)
 ```
 
 # `config`

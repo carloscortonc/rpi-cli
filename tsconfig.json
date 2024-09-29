@@ -12,6 +12,8 @@
     "rootDir": "./src",
     "checkJs": false,
     "noImplicitAny": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "baseUrl": "./src",
     "paths": {
       "@modules/*": ["modules/*"],

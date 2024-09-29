@@ -1,6 +1,5 @@
 import archiver from "archiver";
 import fs from "fs";
-import path from "path";
 
 /**
  * Zip a given folder

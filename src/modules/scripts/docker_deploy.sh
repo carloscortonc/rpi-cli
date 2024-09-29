@@ -6,6 +6,7 @@
 #  - PORT: for docker applications, port to be used (should be included in $VARS)
 #  - VARS: other variables to be included as build-args
 #  - ENVFILE: name of an env-file to provide to `docker run` command
+#  - LOGS: time to wait for displaying container logs, <=0 to skip
 #  - BUILD_ON_TARGET: whether the build process should be executed on target server
 
 CURRDIR=$(dirname $0)
@@ -64,9 +65,12 @@ docker container stop $NAME
 docker rm $NAME
 # run docker container
 docker run --privileged --name $NAME -d -i $port_mapping $env_file $NAME:latest
-# wait 3s and display logs
-echo Waiting 5s before displaying logs...
-sleep 5
-docker logs $NAME
+
+if [[ "$LOGS" =~ ^[1-9][0-9]*$ ]]; then
+  # wait specified delay and display logs
+  echo Waiting ${LOGS}s before displaying logs...
+  sleep $LOGS
+  docker logs $NAME
+fi
 
 EOF
