@@ -1,10 +1,15 @@
 import fs from "fs";
+import path from "path";
 import { stringify, parse as iniParse } from "ini";
 import op from "object-path";
 
+export const names = [".rpirc"];
+
 class Config {
   config: object = {};
-  filepath: string = process.cwd();
+  exists = false;
+  // By default, create file in the current directory
+  filepath: string = path.join(process.cwd(), names[0]);
 
   constructor() {
     this.parse = this.parse.bind(this);
@@ -13,6 +18,8 @@ class Config {
   parse(content: string, filepath: string) {
     this.filepath = filepath;
     this.config = iniParse(content);
+    // This method is called by `cli-er` to parse config when a file is found
+    this.exists = true;
     return this.config;
   }
 
@@ -25,6 +32,7 @@ class Config {
       op.set(this.config, k, o[k]);
     }
     fs.writeFileSync(this.filepath, stringify(this.config));
+    this.exists = true;
   }
 }
 

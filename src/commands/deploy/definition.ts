@@ -1,38 +1,56 @@
 import Cli from "cli-er";
 
-const definition = Cli.defineCommand({
-  description: "Deploy an application from a folder",
+const definition = Cli.defineNamespace({
+  description: "Deploy an application from a folder or file",
+  default: "docker",
   options: {
-    location: {
-      description: "Location of the folder containing the application",
-      required: true,
-      positional: 0,
+    docker: {
+      kind: "command",
+      description: "Deploy a docker application",
+      options: {
+        location: {
+          description: "Location of the folder containing the application",
+          required: true,
+          positional: 0,
+        },
+        name: {
+          description: "Name to tag the application. By default, the folder/file name will be used",
+        },
+        variables: {
+          description: "List of variables for docker applications in <KEY>=<VALUE> format, e.g. PORT=8080",
+          aliases: ["vars"],
+          type: "list",
+          default: [],
+        },
+        envFile: {
+          description: "Environment variables file to provide when running the container",
+          aliases: ["envfile"],
+        },
+      },
     },
-    type: {
-      description: "Type of application to deploy",
-      enum: ["docker", "web"] as const,
-      default: "docker",
-    },
-    name: {
-      description: "Name to tag the application. By default, the folder/file name will be used",
+    web: {
+      kind: "command",
+      description: "Deploy a web application",
+      options: {
+        location: {
+          description: "Location of the folder containing the application",
+          required: true,
+          positional: 0,
+        },
+        name: {
+          description: "Name to tag the application. By default, the folder/file name will be used",
+        },
+      },
     },
     buildOnTarget: {
+      kind: "option",
       description: "Build docker image on target machine instead of local",
       type: "boolean",
       aliases: ["build-on-target"],
       default: true,
     },
-    variables: {
-      description: "List of variables for docker applications in <KEY>=<VALUE> format, e.g. PORT=8080",
-      aliases: ["vars"],
-      type: "list",
-      default: [],
-    },
-    envFile: {
-      description: "Environment variables file to provide when running the container",
-      aliases: ["envfile"],
-    },
     logs: {
+      kind: "option",
       description: "Show container logs after the indicated time. Use value <= 0 to skip",
       type: "number",
       default: 5,

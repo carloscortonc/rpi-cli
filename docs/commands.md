@@ -1,6 +1,7 @@
 List of available commands
 
 # `init`
+Perform initial configuration on a server
 ```
 Usage:  rpi init
 
@@ -8,29 +9,56 @@ Initialize server tools and configuration
 ```
 
 # `deploy`
-```
-Usage:  rpi deploy <location> [OPTIONS]
+Deploy an application
 
-Deploy an application from a folder
+## `deploy.docker`
+```
+Usage:  rpi deploy docker <location> [OPTIONS]
+
+Deploy a docker application
 
 Options:
   --location         Location of the folder containing the application
-  --type             Type of application to deploy (allowed: ["docker", "web"], default: "docker")
   --name             Name to tag the application. By default, the folder/file name will be used
-  --build-on-target  Build docker image on target machine instead of local (default: true)
   --vars             List of variables for docker applications in <KEY>=<VALUE> format, e.g. PORT=8080 (default: [])
   --envfile          Environment variables file to provide when running the container
+  --build-on-target  Build docker image on target machine instead of local (default: true)
+  --logs             Show container logs after the indicated time. Use value <= 0 to skip (default: 5)
+```
+
+## `deploy.web`
+```
+Usage:  rpi deploy web <location> [OPTIONS]
+
+Deploy a web application
+
+Options:
+  --location         Location of the folder containing the application
+  --name             Name to tag the application. By default, the folder/file name will be used
+  --build-on-target  Build docker image on target machine instead of local (default: true)
   --logs             Show container logs after the indicated time. Use value <= 0 to skip (default: 5)
 ```
 
 # `config`
-```
-Usage:  rpi config <operation> [key] [value]
+Manage configuration
 
-Read and update configuration values
+## `config.get`
+```
+Usage:  rpi config get [key]
+
+Read configuration values
 
 Options:
-  --operation  Operation to execute (default: "get")
-  --key        Configuration key
-  --value      For `set` operation, value to update
+  --key       Configuration key to read
+```
+
+## `config.set`
+```
+Usage:  rpi config set <key> <value>
+
+Update configuration values
+
+Options:
+  --key       Configuration key to set
+  --value     Configuration value to set
 ```
