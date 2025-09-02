@@ -3,23 +3,20 @@ import config from "@modules/config";
 import definition from "./definition";
 import { stringify } from "ini";
 
-type ConfigParams = Cli.CommandOptions<typeof definition>;
-const operations = {
-  get: ({ key }: ConfigParams) => {
-    const content = key !== undefined ? config.get(key, "Not value found") : config.config;
-    Cli.logger.log(typeof content === "string" ? content : stringify(content, { whitespace: true }));
-  },
-  set: ({ key, value }: ConfigParams) => {
-    config.set({ [key!]: value });
-    Cli.logger.log(`Config value for \`${key}\` successfully updated\n`);
-  },
+type ConfigParams = Cli.NamespaceOptions<typeof definition>;
+export const get = (params: ConfigParams["get"]) => {
+  // Check if config file exists
+  if (!config.exists) {
+    return Cli.logger.log("Config file not found at ".concat(config.filepath, "\n"));
+  }
+  const content = params.key !== undefined ? config.get(params.key, "No value found") : config.config;
+  Cli.logger.log(
+    typeof content === "string" ? content : stringify(content, { whitespace: true, align: true }).replace(/\r?\n$/, ""),
+    "\n",
+  );
 };
 
-export default function (params: ConfigParams) {
-  // Allow alias: `config x` == `config get x`
-  if (!["get", "set"].includes(params.operation)) {
-    params.key = params.operation;
-    params.operation = "get";
-  }
-  operations[params.operation](params);
-}
+export const set = (params: ConfigParams["set"]) => {
+  config.set({ [params.key]: params.value });
+  Cli.logger.log(`Config value for \`${params.key}\` successfully updated\n`);
+};
