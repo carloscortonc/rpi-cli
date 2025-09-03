@@ -26,6 +26,7 @@
     "object-path": "^0.11.8"
   },
   "devDependencies": {
+    "@json-types/compose": "^0.10.0",
     "@saithodev/semantic-release-backmerge": "^2.1.2",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
@@ -41,5 +42,8 @@
   },
   "resolutions": {
     "strip-ansi": "6.0.0"
+  },
+  "publishConfig": {
+    "provenance": true
   }
 }

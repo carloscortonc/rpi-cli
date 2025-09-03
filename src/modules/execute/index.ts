@@ -9,7 +9,7 @@ export async function executeScript(name: string, params: Record<string, string>
   const location = path.join(__dirname, "..", "scripts", name);
   // TODO check for valid location
   return new Promise((resolve, reject) => {
-    // TODO "win32" support
+    // TODO "win32" support https://www.npmjs.com/package/shelljs
     const child = spawn("sh", [location], {
       shell: true,
       cwd: path.dirname(location),

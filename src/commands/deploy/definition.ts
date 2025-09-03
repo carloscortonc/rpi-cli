@@ -2,8 +2,21 @@ import Cli from "cli-er";
 
 const definition = Cli.defineNamespace({
   description: "Deploy an application from a folder or file",
-  default: "docker",
+  default: "dockerc",
   options: {
+    dockerc: {
+      kind: "command",
+      description: "Deploy a docker-compose application",
+      options: {
+        files: {
+          kind: "option",
+          description: "For docker-compose, list of configuration files",
+          type: "list",
+          default: ["docker-compose.yaml"],
+          aliases: ["files", "f"],
+        },
+      },
+    },
     docker: {
       kind: "command",
       description: "Deploy a docker application",
