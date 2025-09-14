@@ -27,11 +27,13 @@ export default function zip(from: string, to: string): Promise<void> {
  * Zip a list of directories and/or files
  * @param params.entries List of files/dirs to include
  * @param params.to Target file e.g. "test.zip"
+ * @param params.int Name for intermediate folders, if required (default: "_")
  * @returns Promise<void>
  */
 export async function zipEntries(params: {
   entries: { type: "file" | "dir"; path: string }[];
   to: string;
+  int?: string;
   log?: boolean;
 }) {
   return new Promise<void>((resolve, reject) => {
@@ -45,9 +47,21 @@ export async function zipEntries(params: {
     stream.on("close", () => resolve());
     archive.on("error", (err) => reject(err));
 
-    for (const entry of params.entries) {
+    const prevPathRegex = /(?<=(^|\/))\.\.(\/|$)/g;
+    // Calculate the total count of parent directories per entry
+    const entriesInfo = params.entries
+      .map((e) => ({ ...e, path: path.relative(root, e.path) }))
+      .map((e) => ({ ...e, count: e.path.match(prevPathRegex)?.length || 0 }));
+    const maxCount = Math.max(...entriesInfo.map((e) => e.count));
+
+    for (const entry of entriesInfo) {
       const p = path.resolve(entry.path);
-      const name = path.join(rootName, path.relative(root, entry.path));
+      // Compose the final name: "{zip-name}/{..._}/{path}"
+      const name = path.join(
+        rootName,
+        ...Array(maxCount - entry.count).fill(params.int || "_"),
+        entry.path.replace(prevPathRegex, ""),
+      );
       params.log && Cli.logger.log("[zip] Adding ", name, "\n");
       if (entry.type === "dir") {
         archive.directory(p, name);

@@ -17,17 +17,6 @@ export default async function (options: DockerCParams) {
 
   // Build on target: create a list of folders and files required for the build
   if (options.buildOnTarget) {
-    /**
-     * !!! Currently works only if such folders/files live under `params.files`
-     * !!! A workaround to this could be creating intermediate dirs e.g.
-     *
-     *  entries: ["../../dir-1", "../../dir-2"]
-     *
-     *  zipped folder:
-     *   /dir-1
-     *   /dir-2
-     *   /_/_/docker-compose.yaml
-     */
     Cli.logger.log("[build-on-target] Preparing files ...\n");
     const entries: { type: "file" | "dir"; path: string }[] = [];
     // Include all provided files
