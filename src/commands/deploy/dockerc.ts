@@ -39,6 +39,7 @@ export default async function (options: DockerCParams) {
       Object.values({ ...dc.configs, ...dc.secrets }).forEach(
         (c) => c.file && entries.push({ type: "file", path: c.file }),
       );
+      // TODO: dc.volumes
       // TODO: dc.include
       const services = Object.values(dc.services || {});
       for (const s of services) {
@@ -50,6 +51,14 @@ export default async function (options: DockerCParams) {
         // Service extends
         typeof s.extends !== "string" && s.extends?.file && entries.push({ type: "file", path: s.extends.file });
 
+        // Volumes
+        if (s.volumes) {
+          entries.push(
+            ...s.volumes
+              .map((v) => (typeof v == "string" ? v.split(":")[0] : v.source))
+              .map((v) => ({ type: "file", path: v })),
+          );
+        }
         // Check build information
         if (!s.build) {
           continue;
