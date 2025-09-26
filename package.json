@@ -20,9 +20,10 @@
   },
   "dependencies": {
     "archiver": "^6.0.1",
-    "cli-er": "^0.17.0",
+    "cli-er": "^0.18.0",
     "enquirer": "^2.4.1",
     "ini": "^5.0.0",
+    "minimatch": "^10.0.3",
     "object-path": "^0.11.8"
   },
   "devDependencies": {

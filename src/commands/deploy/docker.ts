@@ -4,6 +4,7 @@ import definition from "./definition";
 import zip from "@modules/utils/zip";
 import { finalPath } from "@modules/utils/path";
 
+//TODO use options.__ to allow including additional docker args (remove from definition those not required)
 type DockerParams = Cli.NamespaceOptions<typeof definition>["docker"];
 export default async function (options: DockerParams) {
   let [location, envFile] = [options.location, options.envFile!].map(finalPath);

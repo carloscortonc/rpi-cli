@@ -9,7 +9,7 @@
 
 CURRDIR=$(dirname $0)
 APP=`basename $LOCATION`
-NAME="${APP_NAME:-$APP}"
+NAME="${APP%.*}"
 
 # Check for building locally
 if [ "$BUILD_ON_TARGET" != "true" ]; then
@@ -17,7 +17,7 @@ if [ "$BUILD_ON_TARGET" != "true" ]; then
   exit 1
 fi
 
-echo Uploading project [$NAME] to registry ...
+echo Uploading project [$APP] to registry ...
 
 source $CURRDIR/ftp_upload.sh $LOCATION
 
@@ -27,11 +27,10 @@ cd ~/registry/
 # build-on-target
 if [ "$BUILD_ON_TARGET" = "true" ]; then
   # unzip file
-  unzip -o $APP.zip -d $NAME
+  unzip -o $APP
+  cd $NAME
   # execute docker compose
   docker compose $COMPOSE_ARGS build $BUILD_ARGS
-  # clean
-  rm -rf $NAME
 
 # build-local - not implemented
 else
@@ -39,21 +38,25 @@ else
   exit 1
 fi
 
-# clean
-rm $APP.zip
 # stop previous if running
 docker compose down
 # run docker compose
-docker compose up
+docker compose up -d
+
 
 if [[ "$LOGS" =~ ^[1-9][0-9]*$ ]]; then
   # wait specified delay and display logs
   echo Waiting ${LOGS}s before displaying logs...
   sleep $LOGS
-  docker logs $NAME
+  docker compose logs
 fi
+
+# clean
+cd ..
+rm $APP
+rm -rf $NAME
 
 EOF
 
 # Remove zip
-# rm $LOCATION
+rm $LOCATION

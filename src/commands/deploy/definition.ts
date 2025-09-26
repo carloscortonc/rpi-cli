@@ -15,6 +15,13 @@ const definition = Cli.defineNamespace({
           default: ["docker-compose.yaml"],
           aliases: ["files", "f"],
         },
+        exclude: {
+          kind: "option",
+          description: 'List of paths to exclude from packaging e.g. "/dev"',
+          type: "list",
+          default: ["/dev", "/etc"],
+          aliases: ["exclude", "e"],
+        },
       },
     },
     docker: {
@@ -28,6 +35,13 @@ const definition = Cli.defineNamespace({
         },
         name: {
           description: "Name to tag the application. By default, the folder/file name will be used",
+        },
+        buildOnTarget: {
+          kind: "option",
+          description: "Build docker image on target machine instead of local",
+          type: "boolean",
+          aliases: ["build-on-target"],
+          default: true,
         },
         variables: {
           description: "List of variables for docker applications in <KEY>=<VALUE> format, e.g. PORT=8080",
@@ -54,13 +68,6 @@ const definition = Cli.defineNamespace({
           description: "Name to tag the application. By default, the folder/file name will be used",
         },
       },
-    },
-    buildOnTarget: {
-      kind: "option",
-      description: "Build docker image on target machine instead of local",
-      type: "boolean",
-      aliases: ["build-on-target"],
-      default: true,
     },
     logs: {
       kind: "option",
