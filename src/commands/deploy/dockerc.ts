@@ -9,8 +9,7 @@ import { readYaml } from "@modules/utils/fs";
 import { type Compose } from "@json-types/compose";
 import { minimatch } from "minimatch";
 
-// TODO --dryRun => list files to be included
-
+const entryType = ["file", "dir"] as const;
 type DockerCParams = Cli.NamespaceOptions<typeof definition>["dockerc"];
 export default async function (options: DockerCParams) {
   const files = options.files.map(finalPath);
@@ -21,7 +20,7 @@ export default async function (options: DockerCParams) {
 
   // Build on target: create a list of folders and files required for the build
   Cli.logger.log("[build-on-target] Preparing files ...\n");
-  let entries: { type: "file" | "dir"; path: string }[] = [];
+  let entries: { type: (typeof entryType)[number]; path: string }[] = [];
   // Include all provided files
   entries.push(...files.map((f) => ({ type: "file", path: f } as const)));
   // List of contexts that need to be copied
@@ -80,7 +79,25 @@ export default async function (options: DockerCParams) {
   }
 
   // Check if entry exists && apply exclusions to entries
-  entries = entries.filter((e) => fs.existsSync(e.path) && !options.exclude.some((ex) => minimatch(e.path, ex)));
+  const excluded: typeof entries = [];
+  entries = entries.filter((e) => {
+    if (fs.existsSync(e.path) && !options.exclude.some((ex) => minimatch(e.path, ex))) {
+      return true;
+    }
+    excluded.push(e);
+    return false;
+  });
+
+  if (options.dryRun) {
+    const maxTypeLength = Math.max(...entryType.map((e) => e.length));
+    const logEntry = (e: (typeof entries)[number]) =>
+      Cli.logger.log(`  [${e.type.padStart(maxTypeLength, " ")}] ${e.path}\n`);
+    Cli.logger.log("[docker-deploy::dry-run] List of included files:\n");
+    entries.forEach(logEntry);
+    Cli.logger.log("[docker-deploy::dry-run] List of excluded files:\n");
+    excluded.forEach(logEntry);
+    return;
+  }
 
   rootDir = await zipEntries({ entries, to: location, log: true });
 

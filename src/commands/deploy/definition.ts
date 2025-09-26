@@ -22,6 +22,12 @@ const definition = Cli.defineNamespace({
           default: ["/dev", "/etc"],
           aliases: ["exclude", "e"],
         },
+        dryRun: {
+          kind: "option",
+          description: "Verify the list of entries that will be packaged, without performing deploy",
+          type: "boolean",
+          aliases: ["--dry-run"],
+        },
       },
     },
     docker: {
