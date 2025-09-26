@@ -7,7 +7,7 @@ on:
 jobs:
   release:
     if: github.event.pull_request.merged == true
-    uses: ./.github/workflows/release-common.yml
+    uses: ./.github/workflows/release-base.yml
     with:
       dry_run: false
     secrets: inherit
