@@ -58,7 +58,5 @@ if [[ "$INSTALL_NGINX" == "1" ]]; then
 fi
 
 # --- BASIC SETUP ---
-# create /registry folder for downloads
-mkdir -p ~/registry/secrets
 
 EOF

@@ -10,7 +10,7 @@ const definition = Cli.defineNamespace({
       options: {
         files: {
           kind: "option",
-          description: "For docker-compose, list of configuration files",
+          description: "List of docker-compose files",
           type: "list",
           default: ["docker-compose.yaml"],
           aliases: ["files", "f"],
@@ -77,7 +77,7 @@ const definition = Cli.defineNamespace({
     },
     logs: {
       kind: "option",
-      description: "Show container logs after the indicated time. Use value <= 0 to skip",
+      description: "Show container logs after the indicated time (seconds). Use value <= 0 to skip",
       type: "number",
       default: 5,
     },
