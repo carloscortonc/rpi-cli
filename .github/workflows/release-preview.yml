@@ -6,7 +6,7 @@ on:
 
 jobs:
   release-preview:
-    uses: ./.github/workflows/release-common.yml
+    uses: ./.github/workflows/release-base.yml
     with:
       dry_run: true
     secrets: inherit

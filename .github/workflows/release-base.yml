@@ -7,8 +7,10 @@ on:
         type: boolean
 
 jobs:
-  release-preview:
+  release-base:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write # to enable use of OIDC for npm provenance
     steps:
       - name: Checkout
         uses: actions/checkout@v3

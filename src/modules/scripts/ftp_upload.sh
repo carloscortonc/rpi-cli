@@ -6,4 +6,6 @@
 
 FILENAME=`basename $1`
 DESTFILE=./registry/$([ ! "$2" ] && echo "$FILENAME" || echo "$2")
+# Create first destination folder, in case it does not exist
+ssh $USER@$IP "mkdir -p $(dirname $DESTFILE)"
 echo "put $1 $DESTFILE" | sftp $USER@$IP
