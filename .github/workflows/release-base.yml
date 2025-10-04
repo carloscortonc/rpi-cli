@@ -24,18 +24,28 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
-      - name: Semantic Release
-        id: semantic-release
-        run: npx semantic-release --dry-run=$DRY_RUN
+
+      - name: Release Preview
+        if: ${{ inputs.dry_run == true }}
+        id: release-preview
+        run: bash -c "unset GITHUB_ACTIONS && npx semantic-release --dry-run --no-ci --branches '${HEAD_REF}'")"
         env:
-          DRY_RUN: ${{ inputs.dry_run }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          HEAD_REF: ${{ github.head_ref }}
+
       - name: Release summary
+        if: ${{ inputs.dry_run == true }}
         run: |
           {
             echo "### 📦 Semantic Release Summary"
-            echo "- Published: **${{ steps.semantic-release.outputs.new-release-published }}**"
-            echo "- Version: **${{ steps.semantic-release.outputs.new-release-version }}**"
-            echo "- Tag: **${{ steps.semantic-release.outputs.new-release-git-tag }}**"
+            echo "- Published: **${{ steps.release-preview.outputs.new-release-published }}**"
+            echo "- Version: **${{ steps.release-preview.outputs.new-release-version }}**"
+            echo "- Tag: **${{ steps.release-preview.outputs.new-release-git-tag }}**"
           } >> $GITHUB_STEP_SUMMARY
+
+      - name: Semantic Release
+        if: ${{ inputs.dry_run == false }}
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
