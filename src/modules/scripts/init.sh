@@ -24,6 +24,7 @@ newgrp docker
 # configure docker to start on boot
 sudo systemctl enable docker.service
 sudo systemctl enable containerd.service
+sudo service docker restart
 
 # --- CONFIGURE NGINX ---
 if [[ "$INSTALL_NGINX" == "1" ]]; then
