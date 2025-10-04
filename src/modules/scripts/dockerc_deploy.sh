@@ -19,7 +19,7 @@ fi
 
 echo Uploading project [$APP] to registry ...
 
-source $CURRDIR/ftp_upload.sh $LOCATION
+source $CURRDIR/upload.sh $LOCATION
 
 ssh -o ConnectTimeout=5 -o ServerAliveCountMax=2 -o ServerAliveInterval=10 $USER@$IP 'bash -s' <<EOF
 cd ~/registry/

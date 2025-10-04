@@ -11,7 +11,7 @@ ZIP_LOCATION="$LOCATION/../$APP.zip"
 
 echo Uploading project [$NAME] to registry ...
 
-source $CURRDIR/ftp_upload.sh $ZIP_LOCATION
+source $CURRDIR/upload.sh $ZIP_LOCATION
 
 ssh $USER@$IP 'bash -s' <<EOF
 cd ~/registry/
