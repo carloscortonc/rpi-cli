@@ -2,7 +2,7 @@ List of available commands
 
 # `init`
 Perform initial configuration on a server
-```
+```sh
 Usage:  rpi init
 
 Initialize server tools and configuration
@@ -12,7 +12,7 @@ Initialize server tools and configuration
 Deploy an application
 
 ## `deploy.dockerc`
-```
+```sh
 Usage:  rpi deploy dockerc [OPTIONS]
 
 Deploy a docker-compose application
@@ -26,7 +26,7 @@ Options:
 ```
 
 ## `deploy.docker`
-```
+```sh
 Usage:  rpi deploy docker <location> [OPTIONS]
 
 Deploy a docker application
@@ -41,7 +41,7 @@ Options:
 ```
 
 ## `deploy.web`
-```
+```sh
 Usage:  rpi deploy web <location> [OPTIONS]
 
 Deploy a web application
@@ -53,11 +53,24 @@ Options:
   --logs             Show container logs after the indicated time (seconds). Use value <= 0 to skip (default: 5)
 ```
 
+# `upload`
+
+```sh
+Usage:  rpi upload <files...> [OPTIONS]
+
+Upload files to the server
+
+Options:
+  --files     Location of the files to upload
+  -d, --dest  Destination path on host (default: "~/registry/")
+  -h, --help  Display global help, or scoped to a namespace/command
+```
+
 # `config`
 Manage configuration
 
 ## `config.get`
-```
+```sh
 Usage:  rpi config get [key]
 
 Read configuration values
@@ -67,7 +80,7 @@ Options:
 ```
 
 ## `config.set`
-```
+```sh
 Usage:  rpi config set <key> <value>
 
 Update configuration values

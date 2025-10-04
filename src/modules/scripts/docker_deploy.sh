@@ -30,12 +30,12 @@ fi
 
 echo Uploading project [$NAME] to registry ...
 
-source $CURRDIR/ftp_upload.sh $ZIP_LOCATION
+source $CURRDIR/upload.sh $ZIP_LOCATION
 
 # Upload env-file
 if [ "$ENVFILE" ]; then
   echo Uploading env-file to registry ...
-  source $CURRDIR/ftp_upload.sh $ENVFILE secrets/$NAME
+  DESTINATION=~/registry/secrets/$NAME source $CURRDIR/upload.sh $ENVFILE
 fi
 
 echo Deploying docker app [$NAME] $([ ! "$PORT" ] && echo "" || echo on port [$PORT])
