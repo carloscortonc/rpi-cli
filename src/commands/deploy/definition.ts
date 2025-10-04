@@ -6,7 +6,7 @@ const definition = Cli.defineNamespace({
   options: {
     dockerc: {
       kind: "command",
-      description: "Deploy a docker-compose application. Use '--' to include additional docker-compose options",
+      description: "Deploy a docker-compose application. Use '--' to include additional docker-compose:build options",
       options: {
         files: {
           kind: "option",
@@ -32,7 +32,7 @@ const definition = Cli.defineNamespace({
     },
     docker: {
       kind: "command",
-      description: "Deploy a docker application",
+      description: "Deploy a docker application. Use '--' to include additional docker:run options",
       options: {
         location: {
           description: "Location of the folder containing the application",
