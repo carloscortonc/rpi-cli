@@ -31,7 +31,11 @@ jobs:
           DRY_RUN: ${{ inputs.dry_run }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-    outputs:
-      new-release-published: ${{ steps.semantic-release.outputs.new-release-published }}
-      new-release-version: ${{ steps.semantic-release.outputs.new-release-version }}
-      new-release-git-tag: ${{ steps.semantic-release.outputs.new-release-git-tag }}
+      - name: Release summary
+        run: |
+          {
+            echo "### 📦 Semantic Release Summary"
+            echo "- Published: **${{ steps.semantic-release.outputs.new-release-published }}**"
+            echo "- Version: **${{ steps.semantic-release.outputs.new-release-version }}**"
+            echo "- Tag: **${{ steps.semantic-release.outputs.new-release-git-tag }}**"
+          } >> $GITHUB_STEP_SUMMARY
