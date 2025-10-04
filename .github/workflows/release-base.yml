@@ -25,9 +25,13 @@ jobs:
       - name: Build
         run: npm run build
       - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v3
-        with:
-          dry_run: ${{ inputs.dry_run }}
+        id: semantic-release
+        run: npx semantic-release --dry-run=$DRY_RUN
         env:
+          DRY_RUN: ${{ inputs.dry_run }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    outputs:
+      new-release-published: ${{ steps.semantic-release.outputs.new-release-published }}
+      new-release-version: ${{ steps.semantic-release.outputs.new-release-version }}
+      new-release-git-tag: ${{ steps.semantic-release.outputs.new-release-git-tag }}
