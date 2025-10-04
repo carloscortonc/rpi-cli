@@ -6,7 +6,7 @@
 #  - DESTINATION: if provided, destination path (default: "~/registry")
 
 FILENAME=`basename $1`
-DEST="${DESTINATION:-'~/registry'}"
-# Create first destination folder, in case it does not exist
-ssh $USER@$IP "mkdir -p $DEST"
-scp $@ $USER@$IP:$DEST
+DEST="${DESTINATION:-\$HOME/registry}"
+# Create first destination folder, in case it does not exist, and save resolved path
+EXPANDED_DEST=$(ssh $USER@$IP "mkdir -p $DEST && echo $DEST")
+scp $@ $USER@$IP:$EXPANDED_DEST
