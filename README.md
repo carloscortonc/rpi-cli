@@ -41,7 +41,6 @@ You will be prompted for some required configuration and preferences:
 > Server Ip and user will be stored in a configuration file `.rpirc`, which will be read on consecutive executions.
 
 The process will:
-- Install `vsftdp`, required for deploying.
 - Install `docker`.
 - Configure `nginx`, if requested.
 
