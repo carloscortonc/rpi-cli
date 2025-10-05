@@ -1,3 +1,22 @@
+# [2.0.0](https://github.com/carloscortonc/rpi-cli/compare/v1.0.0...v2.0.0) (2025-10-05)
+
+
+### Features
+
+* create release-preview wf ([#3](https://github.com/carloscortonc/rpi-cli/issues/3)) ([337110a](https://github.com/carloscortonc/rpi-cli/commit/337110aeed4b9a4f531a61483f1192b0045af690))
+* print logs after deploying ([bfd014e](https://github.com/carloscortonc/rpi-cli/commit/bfd014e6aeece47fdb729725fe6908bebecb2b20))
+* simplify `deploy docker` definition ([#14](https://github.com/carloscortonc/rpi-cli/issues/14)) ([de46b28](https://github.com/carloscortonc/rpi-cli/commit/de46b280279793f64f1aa5bb7869faf5ed6356ad))
+* simplify `init` script as vsftpd is no longer required ([03da97a](https://github.com/carloscortonc/rpi-cli/commit/03da97a1961501bcd74b8772d4391c4350643103))
+* support docker compose ([#8](https://github.com/carloscortonc/rpi-cli/issues/8)) ([399693d](https://github.com/carloscortonc/rpi-cli/commit/399693d8744ea29f4d9f485ea7690cd9adea4260))
+* support for envfile as secrets ([fb4d1f1](https://github.com/carloscortonc/rpi-cli/commit/fb4d1f1c60a6a1ec50e90c88a193a75975b3769c))
+* switch to namespaces for config & deploy ([#6](https://github.com/carloscortonc/rpi-cli/issues/6)) ([1b70683](https://github.com/carloscortonc/rpi-cli/commit/1b70683acfd59ae8143c734657061b2b655f07d3))
+* upload command ([#12](https://github.com/carloscortonc/rpi-cli/issues/12)) ([9f7e4a2](https://github.com/carloscortonc/rpi-cli/commit/9f7e4a293f737c0a2f224c8acfc8369ff6e8e897))
+
+
+### BREAKING CHANGES
+
+* `deploy` command changes how the type is specified (`rpi docker deploy --type=web` => `rpi docker deploy web`)
+
 # 1.0.0 (2024-09-22)
 
 
