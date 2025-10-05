@@ -31,7 +31,7 @@ jobs:
         run: |
           # Unset variables for semantic-release to believe we are not in a PR
           #  (https://github.com/semantic-release/env-ci/blob/master/services/github.js)
-          unset GITHUB_ACTIONS
+          # unset GITHUB_ACTIONS
           unset GITHUB_EVENT_NAME
           unset GITHUB_EVENT_PATH
           GITHUB_REF=$GITHUB_HEAD_REF
