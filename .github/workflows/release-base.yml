@@ -28,7 +28,10 @@ jobs:
       - name: Release Preview
         if: ${{ inputs.dry_run == true }}
         id: release-preview
-        run: unset GITHUB_ACTIONS && echo $GITHUB_HEAD_REF && npx semantic-release --dry-run --no-ci --branches $GITHUB_HEAD_REF
+        run: |
+          unset GITHUB_ACTIONS
+          unset GITHUB_EVENT_NAME
+          npx semantic-release --dry-run --no-ci --branches $GITHUB_HEAD_REF
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
