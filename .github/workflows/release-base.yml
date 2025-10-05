@@ -31,8 +31,9 @@ jobs:
         run: |
           unset GITHUB_ACTIONS
           unset GITHUB_EVENT_NAME
-          npx semantic-release --dry-run --no-ci --branches $GITHUB_HEAD_REF
+          npx semantic-release --dry-run --no-ci --branches $GITHUB_REF
         env:
+          GITHUB_REF: ${{ github.head_ref }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Release summary
