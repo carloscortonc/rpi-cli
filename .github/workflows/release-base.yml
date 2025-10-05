@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
       id-token: write # to enable use of OIDC for npm provenance
     steps:
       - name: Checkout
@@ -43,14 +44,18 @@ jobs:
 
       - name: Release summary
         if: ${{ inputs.dry_run == true }}
-        run: |
-          {
-            echo "### 📦 Semantic Release Summary"
-            echo "- Published: **${{ steps.release-preview.outputs.new-release-published }}**"
-            echo "- Version: **${{ steps.release-preview.outputs.new-release-version }}**"
-            echo "- Tag: **${{ steps.release-preview.outputs.new-release-git-tag }}**"
-            echo -n "NOTES ${{ steps.release-preview.outputs.release-notes }}"
-          } >> $GITHUB_STEP_SUMMARY
+        uses: peter-evans/create-or-update-comment@v5
+        with:
+          issue-number: ${{ github.event.number }}
+          body: |
+            ### 📦 Semantic Release Summary
+
+            - Version: **${{ steps.release-preview.outputs.new-release-version }}**"
+            - Tag: **${{ steps.release-preview.outputs.new-release-git-tag }}**
+
+            ---
+
+            ${{ steps.release-preview.outputs.release-notes }}
 
       - name: Semantic Release
         if: ${{ inputs.dry_run == false }}
