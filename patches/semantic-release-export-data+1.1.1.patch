@@ -1,8 +1,25 @@
 diff --git a/node_modules/semantic-release-export-data/index.js b/node_modules/semantic-release-export-data/index.js
-index 4b3db4e..fc09efd 100644
+index 4b3db4e..c49de10 100644
 --- a/node_modules/semantic-release-export-data/index.js
 +++ b/node_modules/semantic-release-export-data/index.js
-@@ -19,6 +19,7 @@ function generateNotes(_pluginConfig, { nextRelease }) {
+@@ -2,12 +2,14 @@
+ 
+ const { env } = require("node:process");
+ const { appendFileSync } = require("node:fs");
++const { EOL } = require("node:os");
+ 
+ function exportData(name, value) {
+   console.log(`semantic-release-export-data: ${name}=${value}`);
+   if (env.GITHUB_OUTPUT) {  
+-    const output = `${name}=${value}\n`;
+-    appendFileSync(env.GITHUB_OUTPUT, output);
++    const delimiter = "output_delimiter_".concat(new Date().getTime().toString());
++    const output = `${name}<<${delimiter}${EOL}${value}${EOL}${delimiter}${EOL}`;
++    appendFileSync(env.GITHUB_OUTPUT, output, { encoding: 'utf8' });
+   }
+ }
+ 
+@@ -19,6 +21,7 @@ function generateNotes(_pluginConfig, { nextRelease }) {
    exportData("new-release-published", "true");
    exportData("new-release-version", nextRelease.version);
    exportData("new-release-git-tag", nextRelease.gitTag);
