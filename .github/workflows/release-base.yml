@@ -32,12 +32,9 @@ jobs:
         run: |
           # Unset variables for semantic-release to believe we are not in a PR
           #  (https://github.com/semantic-release/env-ci/blob/master/services/github.js)
-          # unset GITHUB_ACTIONS
           unset GITHUB_EVENT_NAME
           unset GITHUB_EVENT_PATH
           GITHUB_REF=$GITHUB_HEAD_REF
-          echo GITHUB_REF=$GITHUB_REF
-          echo GITHUB_HEAD_REF=$GITHUB_HEAD_REF
           npx semantic-release --dry-run --no-ci --branches $GITHUB_REF --debug
         env:
           GITHUB_REF: ${{ github.head_ref }}
@@ -52,6 +49,9 @@ jobs:
             echo "- Published: **${{ steps.release-preview.outputs.new-release-published }}**"
             echo "- Version: **${{ steps.release-preview.outputs.new-release-version }}**"
             echo "- Tag: **${{ steps.release-preview.outputs.new-release-git-tag }}**"
+            echo "NOTES(1) ${{ steps.release-preview.outputs.releaseNotes }}"
+            echo "NOTES(2) ${{ steps.release-preview.outputs.notes }}"
+            echo "${{ steps.release-preview.outputs.* }}"
           } >> $GITHUB_STEP_SUMMARY
 
       - name: Semantic Release
