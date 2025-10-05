@@ -35,8 +35,8 @@ jobs:
           unset GITHUB_EVENT_NAME
           unset GITHUB_EVENT_PATH
           echo GITHUB_REF=$GITHUB_REF
-          echo GITUB_HEAD_REF=$GITUB_HEAD_REF
-          echo $GITHUB_EVENT_PATH
+          echo GITHUB_HEAD_REF=$GITHUB_HEAD_REF
+          echo $GITHUB_ENV
           npx semantic-release --dry-run --no-ci --branches $GITHUB_REF
         env:
           GITHUB_REF: ${{ github.head_ref }}
