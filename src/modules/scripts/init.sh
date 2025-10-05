@@ -7,15 +7,6 @@ ssh -o ConnectTimeout=5 $USER@$IP 'bash -s' <<EOF
 sudo apt-get update
 sudo apt-get upgrade -y
 
-# --- INSTALL UTILITIES ---
-# install ftp, override configurations
-sudo apt-get install vsftpd -y
-sudo sh -c "echo '# --- START OVERRIDES ---
-local_enable=YES
-write_enable=YES
-# --- END OVERRIDES ---' >> /etc/vsftpd.conf"
-sudo service vsftpd restart
-
 # --- INSTALL DOCKER ---
 curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker $USER
