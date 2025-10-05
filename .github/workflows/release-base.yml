@@ -49,9 +49,7 @@ jobs:
             echo "- Published: **${{ steps.release-preview.outputs.new-release-published }}**"
             echo "- Version: **${{ steps.release-preview.outputs.new-release-version }}**"
             echo "- Tag: **${{ steps.release-preview.outputs.new-release-git-tag }}**"
-            echo "NOTES(1) ${{ steps.release-preview.outputs.releaseNotes }}"
-            echo "NOTES(2) ${{ steps.release-preview.outputs.notes }}"
-            echo "${{ steps.release-preview.outputs.* }}"
+            echo "NOTES ${{ steps.release-preview.outputs.release-notes }}"
           } >> $GITHUB_STEP_SUMMARY
 
       - name: Semantic Release

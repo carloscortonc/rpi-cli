@@ -1,0 +1,12 @@
+diff --git a/node_modules/semantic-release-export-data/index.js b/node_modules/semantic-release-export-data/index.js
+index 4b3db4e..fc09efd 100644
+--- a/node_modules/semantic-release-export-data/index.js
++++ b/node_modules/semantic-release-export-data/index.js
+@@ -19,6 +19,7 @@ function generateNotes(_pluginConfig, { nextRelease }) {
+   exportData("new-release-published", "true");
+   exportData("new-release-version", nextRelease.version);
+   exportData("new-release-git-tag", nextRelease.gitTag);
++  exportData("new-release-release-notes", nextRelease.notes);
+ }
+ 
+ module.exports = {
