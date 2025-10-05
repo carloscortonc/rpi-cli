@@ -50,12 +50,12 @@ jobs:
           body: |
             ### 📦 Semantic Release Summary
 
-            - Version: **${{ steps.release-preview.outputs.new-release-version }}**"
+            - Version: **${{ steps.release-preview.outputs.new-release-version }}**
             - Tag: **${{ steps.release-preview.outputs.new-release-git-tag }}**
 
             ---
 
-            ${{ steps.release-preview.outputs.release-notes }}
+            ${{ steps.release-preview.outputs.new-release-release-notes }}
 
       - name: Semantic Release
         if: ${{ inputs.dry_run == false }}
