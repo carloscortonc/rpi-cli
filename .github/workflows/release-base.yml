@@ -37,8 +37,7 @@ jobs:
           GITHUB_REF=$GITHUB_HEAD_REF
           echo GITHUB_REF=$GITHUB_REF
           echo GITHUB_HEAD_REF=$GITHUB_HEAD_REF
-          echo $GITHUB_ENV
-          npx semantic-release --dry-run --no-ci --branches $GITHUB_REF
+          npx semantic-release --dry-run --no-ci --branches $GITHUB_REF --debug
         env:
           GITHUB_REF: ${{ github.head_ref }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
