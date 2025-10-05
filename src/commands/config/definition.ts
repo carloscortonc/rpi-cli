@@ -1,24 +1,29 @@
 import Cli from "cli-er";
 
-const definition = Cli.defineCommand({
+const definition = Cli.defineNamespace({
   description: "Read and update configuration values",
+  default: "get",
   options: {
-    operation: {
-      positional: 0,
-      description: "Operation to execute",
-      required: true,
-      // not including `enum` to allow "config key" as alias of "config get key"
-      default: "get",
-      requires: (v) => (v === "set" ? ["key", "value"] : []),
+    get: {
+      kind: "command",
+      description: "Read configuration values",
+      options: {
+        key: { kind: "option", type: "string", positional: 0, description: "Configuration key to read" },
+      },
     },
-    key: {
-      positional: 1,
-      description: "Configuration key",
-    },
-    value: {
-      positional: 2,
-      description: "For `set` operation, value to update",
-      requires: ["key"],
+    set: {
+      kind: "command",
+      description: "Update configuration values",
+      options: {
+        key: { kind: "option", type: "string", positional: 0, description: "Configuration key to set", required: true },
+        value: {
+          kind: "option",
+          type: "string",
+          positional: 1,
+          description: "Configuration value to set",
+          required: true,
+        },
+      },
     },
   },
 });

@@ -6,7 +6,8 @@
   "author": "Carlos Cortón Cobas <carloscortoncobas98@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf dist && npx tsc && tsc-alias && cpx 'src/**/*.sh' dist",
+    "postinstall": "patch-package",
+    "build": "rimraf dist && tsc && tsc-alias && cpx 'src/**/*.sh' dist",
     "build-local": "npm run build && chmod +x ./dist/index.js"
   },
   "bin": {
@@ -20,12 +21,14 @@
   },
   "dependencies": {
     "archiver": "^6.0.1",
-    "cli-er": "^0.16.0",
+    "cli-er": "^0.18.1",
     "enquirer": "^2.4.1",
     "ini": "^5.0.0",
+    "minimatch": "^10.0.3",
     "object-path": "^0.11.8"
   },
   "devDependencies": {
+    "@json-types/compose": "^0.10.0",
     "@saithodev/semantic-release-backmerge": "^2.1.2",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
@@ -35,11 +38,18 @@
     "@types/object-path": "^0.11.4",
     "cpx": "^1.5.0",
     "glob": "^10.3.10",
+    "patch-package": "^8.0.1",
     "rimraf": "^5.0.5",
+    "semantic-release": "^24.2.9",
+    "semantic-release-export-data": "^1.1.1",
     "tsc-alias": "^1.8.8",
     "typescript": "^5.2.2"
   },
   "resolutions": {
     "strip-ansi": "6.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

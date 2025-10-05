@@ -24,6 +24,7 @@ newgrp docker
 # configure docker to start on boot
 sudo systemctl enable docker.service
 sudo systemctl enable containerd.service
+sudo service docker restart
 
 # --- CONFIGURE NGINX ---
 if [[ "$INSTALL_NGINX" == "1" ]]; then
@@ -58,7 +59,5 @@ if [[ "$INSTALL_NGINX" == "1" ]]; then
 fi
 
 # --- BASIC SETUP ---
-# create /registry folder for downloads
-mkdir ~/registry
 
 EOF
