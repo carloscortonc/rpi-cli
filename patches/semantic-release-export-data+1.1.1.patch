@@ -13,6 +13,7 @@ index 4b3db4e..c49de10 100644
    if (env.GITHUB_OUTPUT) {  
 -    const output = `${name}=${value}\n`;
 -    appendFileSync(env.GITHUB_OUTPUT, output);
++    // Borrowed from https://github.com/actions/toolkit/blob/ddc5fa4ae84a892bfa8431c353db3cf628f1235d/packages/core/src/file-command.ts#L27
 +    const delimiter = "output_delimiter_".concat(new Date().getTime().toString());
 +    const output = `${name}<<${delimiter}${EOL}${value}${EOL}${delimiter}${EOL}`;
 +    appendFileSync(env.GITHUB_OUTPUT, output, { encoding: 'utf8' });
