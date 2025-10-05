@@ -34,6 +34,7 @@ jobs:
           unset GITHUB_ACTIONS
           unset GITHUB_EVENT_NAME
           unset GITHUB_EVENT_PATH
+          GITHUB_REF=$GITHUB_HEAD_REF
           echo GITHUB_REF=$GITHUB_REF
           echo GITHUB_HEAD_REF=$GITHUB_HEAD_REF
           echo $GITHUB_ENV
