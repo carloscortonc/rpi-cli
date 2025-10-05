@@ -10,6 +10,8 @@ jobs:
   release-base:
     runs-on: ubuntu-latest
     permissions:
+      contents: write
+      pull-requests: write
       id-token: write # to enable use of OIDC for npm provenance
     steps:
       - name: Checkout
@@ -29,24 +31,31 @@ jobs:
         if: ${{ inputs.dry_run == true }}
         id: release-preview
         run: |
-          unset GITHUB_ACTIONS
+          # Unset variables for semantic-release to believe we are not in a PR
+          #  (https://github.com/semantic-release/env-ci/blob/master/services/github.js)
           unset GITHUB_EVENT_NAME
-          echo $GITHUB_REF
-          echo $GITHUB_EVENT_PATH
-          npx semantic-release --dry-run --no-ci --branches $GITHUB_REF
+          unset GITHUB_EVENT_PATH
+          GITHUB_REF=$GITHUB_HEAD_REF
+          npx semantic-release --dry-run --no-ci --branches $GITHUB_REF --debug
         env:
           GITHUB_REF: ${{ github.head_ref }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Release summary
         if: ${{ inputs.dry_run == true }}
-        run: |
-          {
-            echo "### 📦 Semantic Release Summary"
-            echo "- Published: **${{ steps.release-preview.outputs.new-release-published }}**"
-            echo "- Version: **${{ steps.release-preview.outputs.new-release-version }}**"
-            echo "- Tag: **${{ steps.release-preview.outputs.new-release-git-tag }}**"
-          } >> $GITHUB_STEP_SUMMARY
+        uses: peter-evans/create-or-update-comment@v5
+        with:
+          issue-number: ${{ github.event.number }}
+          body: |
+            ### 📦 Semantic Release Summary
+
+            - Version: **${{ steps.release-preview.outputs.new-release-version }}**
+            - Tag: **${{ steps.release-preview.outputs.new-release-git-tag }}**
+
+            ---
+
+            ${{ steps.release-preview.outputs.new-release-release-notes }}
 
       - name: Semantic Release
         if: ${{ inputs.dry_run == false }}
