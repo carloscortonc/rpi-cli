@@ -13,7 +13,7 @@ export default async function (options: DockerParams) {
     await zip(location, location.concat(".zip"));
   }
 
-  executeScript("docker_deploy.sh", {
+  return executeScript("docker_deploy.sh", {
     LOCATION: location,
     APP_NAME: options.name!,
     RUN_ARGS: options.__?.join(" ") || "",

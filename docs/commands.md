@@ -58,6 +58,17 @@ Options:
   --logs             Show container logs after the indicated time (seconds). Use value <= 0 to skip (default: 5)
 ```
 
+# `exec`
+
+```sh
+Usage:  rpi exec <args...>
+
+Execute a command or file script on the server
+
+Options:
+  --args      Command, or path to a bash script to execute
+```
+
 # `upload`
 
 ```sh

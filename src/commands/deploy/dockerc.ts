@@ -101,7 +101,7 @@ export default async function (options: DockerCParams) {
 
   rootDir = await zipEntries({ entries, to: location, log: true });
 
-  executeScript("dockerc_deploy.sh", {
+  return executeScript("dockerc_deploy.sh", {
     LOCATION: location,
     COMPOSE_ARGS: "-f ".concat(options.files.map((f) => path.join(rootDir, f)).join(" -f ")),
     BUILD_ARGS: (options.__ || []).join(" "),

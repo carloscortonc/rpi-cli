@@ -6,7 +6,8 @@ const definition = Cli.defineNamespace({
   options: {
     get: {
       kind: "command",
-      description: "Read configuration values",
+      description: "Read configuration values (default command, can be ommited)",
+      usage: "config [key]",
       options: {
         key: { kind: "option", type: "string", positional: 0, description: "Configuration key to read" },
       },
