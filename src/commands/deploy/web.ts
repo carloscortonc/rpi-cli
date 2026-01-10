@@ -10,7 +10,7 @@ export default async function (options: WebParams) {
 
   await zip(location, location.concat(".zip"));
 
-  executeScript("web_deploy.sh", {
+  return executeScript("web_deploy.sh", {
     LOCATION: location,
     APP_NAME: options.name!,
   });

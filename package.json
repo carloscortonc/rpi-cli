@@ -6,7 +6,6 @@
   "author": "Carlos Cortón Cobas <carloscortoncobas98@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "postinstall": "patch-package",
     "build": "rimraf dist && tsc && tsc-alias && cpx 'src/**/*.sh' dist",
     "build-local": "npm run build && chmod +x ./dist/index.js"
   },
@@ -21,7 +20,7 @@
   },
   "dependencies": {
     "archiver": "^6.0.1",
-    "cli-er": "^0.18.1",
+    "cli-er": "^0.18.2",
     "enquirer": "^2.4.1",
     "ini": "^5.0.0",
     "minimatch": "^10.0.3",
@@ -38,10 +37,9 @@
     "@types/object-path": "^0.11.4",
     "cpx": "^1.5.0",
     "glob": "^10.3.10",
-    "patch-package": "^8.0.1",
     "rimraf": "^5.0.5",
     "semantic-release": "^24.2.9",
-    "semantic-release-export-data": "^1.1.1",
+    "semantic-release-export-data": "1.2.0",
     "tsc-alias": "^1.8.8",
     "typescript": "^5.2.2"
   },
