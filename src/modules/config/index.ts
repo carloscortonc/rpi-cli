@@ -1,4 +1,5 @@
 import fs from "fs";
+import os from "os";
 import path from "path";
 import { stringify, parse as iniParse } from "ini";
 import op from "object-path";
@@ -9,7 +10,7 @@ class Config {
   config: object = {};
   exists = false;
   // By default, create file in the current directory
-  filepath: string = path.join(process.cwd(), names[0]);
+  filepath: string = path.join(os.homedir(), names[0]);
 
   constructor() {
     this.parse = this.parse.bind(this);
