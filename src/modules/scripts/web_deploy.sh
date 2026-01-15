@@ -9,6 +9,9 @@ APP=$(basename $LOCATION)
 NAME="${APP_NAME:-$APP}"
 ZIP_LOCATION="$LOCATION/../$APP.zip"
 
+# Check server
+source $CURRDIR/check_server.sh
+
 echo Uploading project [$NAME] to registry ...
 
 source $CURRDIR/upload.sh $ZIP_LOCATION
