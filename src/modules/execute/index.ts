@@ -9,7 +9,7 @@ export async function executeScript(name: string, params: Record<string, string>
   const [_name, ...args] = name.split(" ");
   const location = path.join(__dirname, "..", "scripts", _name);
   // TODO check for valid location
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     // TODO "win32" support https://www.npmjs.com/package/shelljs
     const child = spawn("sh", [location, ...args], {
       shell: true,
@@ -23,7 +23,7 @@ export async function executeScript(name: string, params: Record<string, string>
     });
     child.stdout.pipe(process.stdout);
     child.stderr.pipe(process.stderr);
-    child.on("close", (code) => (code === 0 ? resolve() : reject()));
+    child.on("close", resolve);
   });
 }
 

@@ -11,6 +11,9 @@ CURRDIR=$(dirname $0)
 APP=`basename $LOCATION`
 NAME="${APP%.*}"
 
+# Check server
+source $CURRDIR/check_server.sh
+
 # Check for building locally
 if [ "$BUILD_ON_TARGET" != "true" ]; then
   echo This is not currently supported
