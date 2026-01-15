@@ -8,6 +8,7 @@ const definition = Cli.defineCommand({
       description: "Command, or path to a bash script to execute",
       positional: true,
       required: true,
+      stdin: true,
     },
   },
 });
