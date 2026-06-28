@@ -1,3 +1,18 @@
+# [2.1.0](https://github.com/carloscortonc/rpi-cli/compare/v2.0.0...v2.1.0) (2026-06-28)
+
+
+### Bug Fixes
+
+* update check-server ([#28](https://github.com/carloscortonc/rpi-cli/issues/28)) ([145cf30](https://github.com/carloscortonc/rpi-cli/commit/145cf30e11b6bd6c31985fcf5d97c461e5c48aab))
+
+
+### Features
+
+* `exec` command ([#21](https://github.com/carloscortonc/rpi-cli/issues/21)) ([26dd199](https://github.com/carloscortonc/rpi-cli/commit/26dd199906b9fa27c3c9b7e4ee44b99d7e8cc036))
+* allow stdin on exec command ([#25](https://github.com/carloscortonc/rpi-cli/issues/25)) ([e7abe55](https://github.com/carloscortonc/rpi-cli/commit/e7abe55829a336902f63a06cd86d2d63305e0f51))
+* deploy - check first if server is reachable ([#26](https://github.com/carloscortonc/rpi-cli/issues/26)) ([b54f954](https://github.com/carloscortonc/rpi-cli/commit/b54f95482687ce16185230766912e43edef05fe3))
+* update default config location ([#24](https://github.com/carloscortonc/rpi-cli/issues/24)) ([f573183](https://github.com/carloscortonc/rpi-cli/commit/f573183cf2746757906838f7a57616d47eea576a))
+
 # [2.0.0](https://github.com/carloscortonc/rpi-cli/compare/v1.0.0...v2.0.0) (2025-10-05)
 
 
