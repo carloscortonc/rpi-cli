@@ -5,6 +5,7 @@
 # ENV_VARIABLES:
 #  - DESTINATION: if provided, destination path (default: "~/registry")
 
+CURRDIR=$(dirname $0)
 FILENAME=`basename $1`
 DEST="${DESTINATION:-\$HOME/registry}"
 # Create first destination folder, in case it does not exist, and save resolved path

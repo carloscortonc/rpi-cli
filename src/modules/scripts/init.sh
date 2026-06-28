@@ -3,6 +3,7 @@
 #   INSTALL_NGINX: whether to configure nginx
 
 # Check server
+CURRDIR=$(dirname $0)
 source $CURRDIR/check_server.sh
 
 ssh -o ConnectTimeout=5 $USER@$IP 'bash -s' <<EOF
