@@ -17,6 +17,11 @@ export const get = (params: ConfigParams["get"]) => {
 };
 
 export const set = (params: ConfigParams["set"]) => {
+  const exists = config.exists;
   config.set({ [params.key]: params.value });
-  Cli.logger.log(`Config value for \`${params.key}\` successfully updated\n`);
+  Cli.logger.log(
+    `Config value for \`${params.key}\` successfully updated`,
+    !exists ? ` on ${config.filepath}` : "",
+    "\n",
+  );
 };

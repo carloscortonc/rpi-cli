@@ -26,7 +26,5 @@ export default async function () {
       Cli.logger.error(e.message, "\n");
       process.exit(1);
     });
-  executeScript("init.sh", params).catch((e) => {
-    Cli.logger.error("There was a problem executing the script.", e.message, "\n");
-  });
+  return executeScript("init.sh", params);
 }

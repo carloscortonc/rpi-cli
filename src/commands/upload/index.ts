@@ -9,5 +9,5 @@ export default async function (params: Cli.CommandOptions<typeof definition>): P
   return executeScript(
     "upload.sh ".concat(locations.join(" ")),
     params.destination ? { DESTINATION: params.destination } : {},
-  ).catch(() => {});
+  );
 }
