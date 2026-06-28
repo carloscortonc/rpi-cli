@@ -15,8 +15,6 @@ ZIP_LOCATION="$LOCATION/../$APP.zip"
 # Check server
 source $CURRDIR/check_server.sh
 
-echo after check
-
 # Check for building locally
 if [ "$BUILD_ON_TARGET" != "true" ]; then
   # build docker image

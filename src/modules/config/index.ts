@@ -7,7 +7,7 @@ import op from "object-path";
 export const names = [".rpirc"];
 
 class Config {
-  config: object = {};
+  config: Record<string, any> = {};
   exists = false;
   // By default, create file in the current directory
   filepath: string = path.join(os.homedir(), names[0]);
