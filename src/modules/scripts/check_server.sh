@@ -2,13 +2,15 @@
 
 # Bash's built-in TCP support
 if timeout 5 bash -c "</dev/tcp/$IP/22" >/dev/null 2>&1; then
-    exit 0
+    return 0
 
 # netcat
 elif command -v nc >/dev/null 2>&1; then
     nc -z "$IP" 22 >/dev/null 2>&1
-    exit $?
+    return $?
+
+else
+    echo "Error: server is not reachable on port 22"
+    exit 1
 fi
 
-echo "Error: server is not reachable on port 22"
-exit 1
