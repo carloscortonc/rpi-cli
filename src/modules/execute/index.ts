@@ -14,17 +14,26 @@ export async function executeScript(name: string, params: Record<string, string>
   const ssh = resolveSsh();
 
   return new Promise((resolve) => {
-    const child = spawn(sh, [...shArgs, location, ...args], {
-      shell: false,
-      cwd: path.dirname(location),
-      env: {
-        ...process.env,
-        IP: config.get("ip"),
-        USER: config.get("user"),
-        SSH: ssh,
-        ...params,
+    // On Windows, paths with spaces (e.g. "C:\Program Files\Git\bin\sh.exe") cause ENOENT
+    // when using shell:false. Passing all tokens as a single quoted string to cmd.exe via
+    // shell:true avoids this, while quoting every path-like token guards against spaces in them.
+    const q = (s: string) => (s.includes(" ") ? `"${s}"` : s);
+    const useShell = process.platform === "win32";
+    const child = spawn(
+      useShell ? `${q(sh)} ${[...shArgs, q(location), ...args].join(" ")}` : sh,
+      useShell ? [] : [...shArgs, location, ...args],
+      {
+        shell: useShell,
+        cwd: path.dirname(location),
+        env: {
+          ...process.env,
+          IP: config.get("ip"),
+          USER: config.get("user"),
+          SSH: ssh,
+          ...params,
+        },
       },
-    });
+    );
     child.stdout.pipe(process.stdout);
     child.stderr.pipe(process.stderr);
     child.on("close", resolve);

@@ -14,9 +14,8 @@ export function resolveShell() {
   ];
   for (const c of candidates) {
     try {
-      const v = c.value ? c.value : [c.cmd];
-      execSync(v.join(" ").concat(" --version"), { stdio: "ignore" });
-      return v;
+      execSync((c.value || [`"${c.cmd}"`]).join(" ").concat(" --version"), { stdio: "ignore" });
+      return c.value || [c.cmd];
     } catch {
       // not found at this path, try next
     }
@@ -41,7 +40,8 @@ export function resolveSsh(): string {
 
   for (const c of candidates) {
     try {
-      execSync(c.concat(" -V"), { stdio: "ignore" });
+      const fc = c.includes(" ") ? `"${c}"` : c;
+      execSync(fc.concat(" -V"), { stdio: "ignore" });
       return c;
     } catch {
       // not found at this path
