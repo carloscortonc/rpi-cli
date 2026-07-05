@@ -9,7 +9,7 @@ export const names = [".rpirc"];
 class Config {
   config: Record<string, any> = {};
   exists = false;
-  // By default, create file in the current directory
+  // By default, create file in home dir
   filepath: string = path.join(os.homedir(), names[0]);
 
   constructor() {

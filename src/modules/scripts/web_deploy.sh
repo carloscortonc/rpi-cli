@@ -16,7 +16,7 @@ echo Uploading project [$NAME] to registry ...
 
 source $CURRDIR/upload.sh $ZIP_LOCATION
 
-ssh $USER@$IP 'bash -s' <<EOF
+$SSH $USER@$IP 'bash -s' <<EOF
 cd ~/registry/
 # rm /var/www/html/$APP
 # unzip file
