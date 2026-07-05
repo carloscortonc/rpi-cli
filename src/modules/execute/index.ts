@@ -11,6 +11,7 @@ export async function executeScript(name: string, params: Record<string, string>
   const [_name, ...args] = name.split(" ");
   const location = path.join(__dirname, "..", "scripts", _name);
   const [sh, ...shArgs] = resolveShell();
+  const ssh = resolveSsh();
 
   return new Promise((resolve) => {
     const child = spawn(sh, [...shArgs, location, ...args], {
@@ -20,6 +21,7 @@ export async function executeScript(name: string, params: Record<string, string>
         ...process.env,
         IP: config.get("ip"),
         USER: config.get("user"),
+        SSH: ssh,
         ...params,
       },
     });

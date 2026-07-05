@@ -6,20 +6,24 @@
 CURRDIR=$(dirname $0)
 source $CURRDIR/check_server.sh
 
-ssh -o ConnectTimeout=5 $USER@$IP 'bash -s' <<EOF
+$SSH -o ConnectTimeout=5 $USER@$IP 'bash -s' <<EOF
 
 sudo apt-get update
 sudo apt-get upgrade -y
 
 # --- INSTALL DOCKER ---
-curl -sSL https://get.docker.com | sh
-sudo usermod -aG docker $USER
-# activate changes to groups
-newgrp docker
-# configure docker to start on boot
-sudo systemctl enable docker.service
-sudo systemctl enable containerd.service
-sudo service docker restart
+if [ -x "\$(command -v docker)" ]; then
+  echo "docker already installed (\`docker --version\`)"
+else
+  curl -sSL https://get.docker.com | sh
+  sudo usermod -aG docker $USER
+  # activate changes to groups
+  newgrp docker
+  # configure docker to start on boot
+  sudo systemctl enable docker.service
+  sudo systemctl enable containerd.service
+  sudo service docker restart
+fi
 
 # --- CONFIGURE NGINX ---
 if [[ "$INSTALL_NGINX" == "1" ]]; then

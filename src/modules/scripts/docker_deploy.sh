@@ -29,7 +29,7 @@ source $CURRDIR/upload.sh $ZIP_LOCATION
 
 echo Deploying docker app [$NAME]
 
-ssh -o ConnectTimeout=5 $USER@$IP 'bash -s' <<EOF
+$SSH -o ConnectTimeout=5 $USER@$IP 'bash -s' <<EOF
 cd ~/registry/
 
 # build-on-target
