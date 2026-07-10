@@ -32,8 +32,15 @@ class Config {
     for (const k of Object.keys(o)) {
       op.set(this.config, k, o[k]);
     }
-    fs.writeFileSync(this.filepath, stringify(this.config));
     this.exists = true;
+  }
+
+  write() {
+    fs.writeFileSync(this.filepath, stringify(this.config));
+  }
+
+  delete(key: string) {
+    op.del(this.config, key);
   }
 }
 
