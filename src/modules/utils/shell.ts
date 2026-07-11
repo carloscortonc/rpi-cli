@@ -28,7 +28,7 @@ export function resolveShell() {
 
 export function resolveSsh(): string[] {
   const ssh = [resolveSshBin(), "-o", "ConnectTimeout=5"];
-  const sshport = config.get("ssh_port");
+  const sshport = process.env.SSH_PORT || config.get("ssh_port");
   // Include port flag
   if (sshport) {
     ssh.push("-p", String(sshport));
