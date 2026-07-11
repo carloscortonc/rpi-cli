@@ -1,3 +1,4 @@
+import config from "@modules/config";
 import { execSync } from "child_process";
 
 /** Returns the path to a usable sh-compatible shell on any platform */
@@ -25,8 +26,18 @@ export function resolveShell() {
   );
 }
 
+export function resolveSsh(): string[] {
+  const ssh = [resolveSshBin(), "-o", "ConnectTimeout=5"];
+  const sshport = config.get("ssh_port");
+  // Include port flag
+  if (sshport) {
+    ssh.push("-p", String(sshport));
+  }
+  return ssh;
+}
+
 /** Returns the path to a usable ssh binary on any platform */
-export function resolveSsh(): string {
+function resolveSshBin(): string {
   if (process.platform !== "win32") {
     return "ssh";
   }
