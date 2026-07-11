@@ -26,6 +26,20 @@ const definition = Cli.defineNamespace({
         },
       },
     },
+    del: {
+      kind: "command",
+      aliases: ["delete"],
+      description: "Remove configuration values",
+      options: {
+        key: {
+          kind: "option",
+          type: "string",
+          positional: 0,
+          description: "Configuration key to delete",
+          required: true,
+        },
+      },
+    },
   },
 });
 export default definition;

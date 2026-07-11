@@ -26,7 +26,7 @@ const definition = Cli.defineNamespace({
           kind: "option",
           description: "Verify the list of entries that will be packaged, without performing deploy",
           type: "boolean",
-          aliases: ["--dry-run"],
+          aliases: ["dry-run"],
         },
       },
     },

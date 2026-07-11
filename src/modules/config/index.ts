@@ -9,6 +9,7 @@ export const names = [".rpirc"];
 class Config {
   config: Record<string, any> = {};
   exists = false;
+  modified = false;
   // By default, create file in home dir
   filepath: string = path.join(os.homedir(), names[0]);
 
@@ -32,8 +33,18 @@ class Config {
     for (const k of Object.keys(o)) {
       op.set(this.config, k, o[k]);
     }
-    fs.writeFileSync(this.filepath, stringify(this.config));
     this.exists = true;
+    this.modified = true;
+  }
+
+  write() {
+    if (!this.modified) return;
+    fs.writeFileSync(this.filepath, stringify(this.config));
+  }
+
+  delete(key: string) {
+    op.del(this.config, key);
+    this.modified = true;
   }
 }
 

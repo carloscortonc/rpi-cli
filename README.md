@@ -50,6 +50,7 @@ The process will:
 - [**init**](/docs/commands.md#init): described above, to initially configure a server.
 - [**deploy**](/docs/commands.md#deploy): deploy a docker/web application from a folder.
 - [**upload**](/docs/commands.md#upload): upload files to the server.
+- [**zip**](/docs/commands.md#zip): Compress a folder.
 - [**config**](/docs/commands.md#deploy): read and update configuration values.
 
 ## Development

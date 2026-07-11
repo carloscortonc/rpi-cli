@@ -81,6 +81,19 @@ Options:
   -d, --dest  Destination path on host (default: "~/registry/")
 ```
 
+# `zip`
+
+```sh
+Usage:  rpi zip <location> [destination]
+
+Generate a zip folder from the given location
+
+Options:
+  --location     The location of the folder to zip
+  --destination  Final location for the generated zip. By default, this is obtained by concatenating 
+                  ".zip" to `location`
+```
+
 # `config`
 Manage configuration
 
@@ -103,4 +116,15 @@ Update configuration values
 Options:
   --key       Configuration key to set
   --value     Configuration value to set
+```
+
+## `config.delete`
+```sh
+
+Usage:  rpi config delete <key>
+
+Remove configuration values
+
+Options:
+  --key       Configuration key to delete
 ```

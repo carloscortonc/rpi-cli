@@ -20,5 +20,11 @@ new Cli(
     commandsPath: "",
     configFile: { names, parse: c.parse },
     envPrefix: "RPI_",
+    hooks: {
+      afterExecute: () => {
+        // Persist config after execution
+        c.write();
+      },
+    },
   },
 ).run();
