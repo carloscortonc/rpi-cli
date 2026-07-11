@@ -21,9 +21,9 @@ new Cli(
     configFile: { names, parse: c.parse },
     envPrefix: "RPI_",
     hooks: {
-      afterExecute: (params) => {
+      afterExecute: () => {
         // Persist config after execution
-        params.location[0] === "config" && c.write();
+        c.write();
       },
     },
   },
