@@ -40,6 +40,16 @@ You will be prompted for some required configuration and preferences:
 
 > Server Ip and user will be stored in a configuration file `.rpirc`, which will be read on consecutive executions.
 
+If your server uses a non-standard SSH port, you can set it via configuration:
+```sh
+rpi config set ssh_port <port>
+```
+or by setting the `SSH_PORT` environment variable:
+```sh
+SSH_PORT=2222 rpi <command>
+```
+> The environment variable takes precedence over the configuration value.
+
 The process will:
 - Install `docker`.
 - Configure `nginx`, if requested.

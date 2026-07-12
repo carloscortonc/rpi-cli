@@ -97,6 +97,14 @@ Options:
 # `config`
 Manage configuration
 
+The following configuration keys are supported:
+
+| Key        | Description                                      | Default |
+|------------|--------------------------------------------------|---------|
+| `ip`       | IP address of the target server                  | —       |
+| `user`     | User to connect with via SSH                     | —       |
+| `ssh_port` | Port to use for SSH connections. Can also be set via the `SSH_PORT` environment variable (takes precedence) | `22`    |
+
 ## `config.get`
 ```sh
 Usage:  rpi config get [key]

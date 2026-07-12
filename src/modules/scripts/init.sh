@@ -6,7 +6,7 @@
 CURRDIR=$(dirname $0)
 source $CURRDIR/check_server.sh
 
-$SSH -o ConnectTimeout=5 $USER@$IP 'bash -s' <<EOF
+$SSH $USER@$IP 'bash -s' <<EOF
 
 sudo apt-get update
 sudo apt-get upgrade -y
