@@ -29,7 +29,7 @@ source $CURRDIR/upload.sh $ZIP_LOCATION
 
 echo Deploying docker app [$NAME]
 
-$SSH $USER@$IP 'bash -s' <<EOF
+$SSH 'bash -s' <<EOF
 cd ~/registry/
 
 # build-on-target

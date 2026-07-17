@@ -99,11 +99,14 @@ Manage configuration
 
 The following configuration keys are supported:
 
-| Key        | Description                                      | Default |
-|------------|--------------------------------------------------|---------|
-| `ip`       | IP address of the target server                  | —       |
-| `user`     | User to connect with via SSH                     | —       |
-| `ssh_port` | Port to use for SSH connections. Can also be set via the `SSH_PORT` environment variable (takes precedence) | `22`    |
+| Key        | Env variable  | Description                                      | Default |
+|------------|---------------|--------------------------------------------------|---------|
+| `ip`       | `RPI_IP`      | IP address of the target server                  | —       |
+| `user`     | `RPI_USER`    | User to connect with via SSH                     | —       |
+| `ssh_port` | `RPI_SSH_PORT`| Port to use for SSH connections                  | `22`    |
+
+> [!NOTE]
+> Environment variables take precedence over stored configuration values.
 
 ## `config.get`
 ```sh

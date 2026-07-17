@@ -26,12 +26,20 @@ export function resolveShell() {
   );
 }
 
+export function resolveCredentials() {
+  return {
+    user: process.env.RPI_USER || config.get("user"),
+    ip: process.env.RPI_IP || config.get("IP"),
+    ssh_port: process.env.RPI_SSH_PORT || config.get("ssh_port"),
+  };
+}
+
 export function resolveSsh(): string[] {
-  const ssh = [resolveSshBin(), "-o", "ConnectTimeout=5"];
-  const sshport = process.env.SSH_PORT || config.get("ssh_port");
+  const creds = resolveCredentials();
+  const ssh = [resolveSshBin(), `${creds.user}@${creds.ip}`, "-o", "ConnectTimeout=5"];
   // Include port flag
-  if (sshport) {
-    ssh.push("-p", String(sshport));
+  if (creds.ssh_port) {
+    ssh.push("-p", String(creds.ssh_port));
   }
   return ssh;
 }
