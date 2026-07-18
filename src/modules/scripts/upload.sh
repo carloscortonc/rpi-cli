@@ -13,7 +13,7 @@ DEST="${DESTINATION:-\$HOME/registry}"
 source $CURRDIR/check_server.sh
 
 # Create first destination folder, in case it does not exist, and save resolved path
-EXPANDED_DEST=$($SSH $USER@$IP "mkdir -p $DEST && echo $DEST")
+EXPANDED_DEST=$($SSH "mkdir -p $DEST && echo $DEST")
 
 
 scp $@ $USER@$IP:$EXPANDED_DEST

@@ -24,7 +24,7 @@ echo Uploading project [$APP] to registry ...
 
 source $CURRDIR/upload.sh $LOCATION
 
-$SSH -o ServerAliveCountMax=2 -o ServerAliveInterval=10 $USER@$IP 'bash -s' <<EOF
+$SSH -o ServerAliveCountMax=2 -o ServerAliveInterval=10 'bash -s' <<EOF
 cd ~/registry/
 
 # build-on-target

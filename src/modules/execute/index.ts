@@ -1,6 +1,5 @@
-import config from "@modules/config";
 import { requireConfig } from "@modules/config/utils";
-import { resolveShell, resolveSsh } from "@modules/utils/shell";
+import { resolveCredentials, resolveShell, resolveSsh } from "@modules/utils/shell";
 import { spawn } from "child_process";
 import path from "path";
 import fs from "fs";
@@ -12,6 +11,7 @@ export async function executeScript(name: string, params: Record<string, string>
   const location = path.join(__dirname, "..", "scripts", _name);
   const [sh, ...shArgs] = resolveShell();
   const sshArgs = resolveSsh();
+  const credentials = resolveCredentials();
 
   return new Promise((resolve) => {
     const child = spawn(sh, [...shArgs, location, ...args], {
@@ -19,9 +19,9 @@ export async function executeScript(name: string, params: Record<string, string>
       cwd: path.dirname(location),
       env: {
         ...process.env,
-        IP: config.get("ip"),
-        USER: config.get("user"),
-        SSH_PORT: config.get("ssh_port"), // used for checking ssh conection
+        IP: credentials.ip,
+        USER: credentials.user,
+        SSH_PORT: credentials.ssh_port, // used for checking ssh conection
         SSH: sshArgs.join(" "),
         ...params,
       },
@@ -41,7 +41,7 @@ export async function executeRemoteCommand(
   const [ssh, ...sshFlags] = resolveSsh();
 
   return new Promise((resolve, reject) => {
-    const child = spawn(ssh, [...sshFlags, `${config.get("user")}@${config.get("ip")}`, command, ...params.args], {
+    const child = spawn(ssh, [...sshFlags, command, ...params.args], {
       shell: false,
       stdio: [params.stdin ? "pipe" : "inherit", "pipe", "pipe"],
     });
